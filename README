@@ -1,0 +1,17 @@
+This django project is intended to be a starting point for those interested in building an api 
+
+The quickstart for getting it running locally is:
+	-Clone the git repo
+	-Set up the virtualenv
+		*Install virtualenvwrapper if you don't already have it. (sudo pip install virtualenvwrapper)
+		*Make a virtualenv for cs499 (mkvirtualenv cs499)
+		*Install requirements (pip install -r requirements.txt)
+	-Set up local settings.
+		*In cs499-django/cs499, copy settings_local.py.template to settings_local.py
+		*Fill out SECRET_KEY (instructions in the comments.)
+		*Fill out your db settings
+		*Fill out Twitter and GCM API keys if you want to use them.
+	-Initialize db
+		*manage.py syncdb
+		*manage.py migrate cs499_app
+	-Run the server (manage.py runserver)

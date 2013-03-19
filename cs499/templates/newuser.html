@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Log in</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<style>
+body{
+	font-family:Arial,Helvetica,sans-serif;
+	font-size: 14px;
+}
+</style>
+</head>
+<body>
+	{{ state }}
+	<form action="/api/newuser/" method="post">
+		{% if next %}
+		<input type="hidden" name="next" value="{{ next }}" />
+		{% endif %}
+		<table>
+			<tr><td><b>First name:</b></td><td>
+			<input type="text" size="20" name="firstname" value="{{ firstname}}" /></td></tr>
+			<tr><td><b>Last name:</b></td><td>
+			<input type="text" size="20" name="lastname" value="{{ lastname}}" /></td></tr>
+			<tr><td><b>Username:</b></td><td>
+			<input type="text" name="username" value="{{ username}}" /></td></tr>
+			<tr><td><b>Password: </b></td><td>
+			<input type="password" name="password" value="" /></td></tr>		
+			<tr><td><b>Email:</b></td><td>
+			<input type="text" name="email" value="{{ email}}" /></td></tr>		
+			<tr><td><b> </b></td><td>
+			<input type="submit" value="Submit" /></td></tr>
+		</table>
+	</form>	
+</body>
+</html>

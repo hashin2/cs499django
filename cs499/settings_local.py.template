@@ -1,0 +1,70 @@
+# Settings template
+# Copy this to settings_local.py and fill in the blanks for your dev/prodcution
+# environment.
+
+# Error reporting email config for production (make ADMINS an empty tuple,
+# below, and this part won't matter.
+# FIXME The smtp server defined in EMAIL_HOST has to exist and be set up for
+# email notifications to work.
+EMAIL_HOST = 'smtp.cs499.com'
+EMAIL_HOST_USER = ''
+SERVER_EMAIL = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+SEND_BROKEN_LINK_EMAILS = True
+LOGGING = {
+    'version': 1,
+    'disabled_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
+# Don't need emails in dev mode.
+ADMINS = ()
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '' 
+# Generate a fresh key with the following command:
+# python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'
+
+# Debugging turned on in dev.
+DEBUG = True
+
+# Database config
+DB_ENGINE = 'django.db.backends.postgresql_psycopg2'
+DB_NAME = 'cs499_dev'
+DB_USER = '[YOUR PSQL USER HERE]'
+DB_PASSWORD = '[YOUR PASSWORD HERE]'
+DB_HOST = 'localhost'
+DB_PORT = ''
+
+DATABASES = {
+    'default': {
+        'ENGINE': DB_ENGINE,
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
+    }
+}
+
+# Twitter API keys
+TW_CONSUMER_KEY = ''
+TW_CONSUMER_SECRET = ''
+
+# GCM API key for push notifications
+GCM_KEY = ''
+
