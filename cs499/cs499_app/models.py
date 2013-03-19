@@ -1,5 +1,6 @@
 from django.db import models
 from collections import OrderedDict
+from datetime import datetime
 import json
 
 from cs499.cs499_app.views.api.helpers import dejsonify
@@ -59,25 +60,29 @@ class AbstractBaseModel(models.Model):
             "Ths model hasn't implemented update_from_dict()")
 
 class MotionEvent(AbstractBaseModel):
-     event_x = models.IntegerField(null=False, blank= False, default=0)
-     event_y = models.IntegerField(null=False, blank= False, default=0)
-     time = models.IntegerField(null=False,blank=False,default=0)
+    event_x = models.IntegerField(null=False, blank= False, default=0)
+    event_y = models.IntegerField(null=False, blank= False, default=0)
+    time = models.CharField(max_length = 30, null=False,blank=False,default=0)
+    pressure = models.FloatField(null = False, default = 0)
 
-     def to_dict(self):
+    def to_dict(self):
         d = OrderedDict()
-        d['id'] = self.id;
+        d['id'] = self.id
+        d['MotionEventId'] = self.MotionEventId
         d['time'] = self.time
         d['event_x'] = self.event_x
         d['event_y'] = self.event_y
+        d['pressure'] = self.pressure
 
         return d
 
-     def __unicode__(self):
-        return "id:{id} time:{time} event_x:{x} event_y:{y}".format(
+    def __unicode__(self):
+        return "MotionEventId:{id} time:{time} event_x:{x} event_y:{y} pressure:{pressure}".format(
             id = self.id,
             time = self.time,
             x = self.event_x,
-            y = self.event_y
+            y = self.event_y,
+            pressure = self.pressure
         )
 
 class Parser(AbstractBaseModel):
@@ -103,18 +108,20 @@ class Parser(AbstractBaseModel):
         )
 
 class LoginUsers(AbstractBaseModel):
-    username = models.CharField(max_length=20,blank=False,null=False)
+    username = models.CharField(max_length=20,blank=False,null=False, unique = True)
     password = models.CharField(max_length=20,blank=False,null=False)
 
     def to_dict(self):
-        u = OrderedDict()        
+        u = OrderedDict()
+        u['id'] = self.id        
         u['username'] = self.username
         u['password'] = self.password
 
         return u
 
     def __unicode__(self):
-        return "username:{username} password:{password}".format(
+        return "id:{id} username:{username} password:{password}".format(
+            id = self.id,
             username=self.username,
             password=self.password
         )
@@ -122,20 +129,67 @@ class LoginUsers(AbstractBaseModel):
 class UserFiles(AbstractBaseModel):
     numFiles = models.IntegerField(blank=False,null=False,default=0)
     filename = models.CharField(blank=False,null=False,max_length="40")
-    user_id = models.CharField(max_length=20,blank=False,null=False)
+    userId = models.IntegerField(blank = False, null = False, default = 0)
+    #user_id = models.ForeignKey('LoginUsers')
 
     def to_dict(self):
         f = OrderedDict()
+        f['id'] = self.id
         f['numFiles'] = self.numFiles
         f['filename'] = self.filename
-        f['user_id'] = self.user_id
+        f['userId'] = self.userId
 
         return f
 
     def __unicode__(self):
-        return "For {user_id}: number of files is {numFiles} filenames={filename}".format(
-            user_id = self.user_id,
+        return "For {userId} number of files is {numFiles} filenames={filename}".format(
+            userId = self.userId,
             numFiles = self.numFiles,
             filename = self.filename
         )
 
+#Session refers to a collection of motionevents        
+class Session(AbstractBaseModel):
+    DeviceId = models.ForeignKey('Device')
+    User = models.ForeignKey('LoginUsers')
+    MotionEventId = models.ForeignKey('MotionEvent')
+    SubmissionTime = models.DateField(null=False,blank=False,default=datetime.now())
+
+    def to_dict(self):
+        s = OrderedDict()
+        s['id'] = self.id;
+        s['DeviceId'] = self.DeviceId
+        s['User'] = self.User
+        s['MotionEventId'] = self.MotionEventId
+        s['SubmissionTime'] = self.SubmissionTime
+
+        return s
+
+    def __unicode__(self):
+        return "SessionId:{id} DeviceId:{DeviceId} User:{User} MotionEventId:{MotionEventId} SubmissionTime:{SubmissionTime".format(
+            id = self.id,
+            DeviceId = self.DeviceId,
+            User = self.user,
+            MotionEventId = self.MotionEventId,
+            SubmissionTime = self.SubmissionTime
+        )
+
+#Device can belong to multiple users but is unique
+class Device(AbstractBaseModel):
+    IMEI = models.CharField(max_length = 50, null=False,blank=False, unique = True)
+    Model = models.CharField(max_length = 30, null=False,blank=False,default= " Model n/a")
+
+    def to_dict(self):
+        de = OrderedDict()
+        de['id'] = self.id;
+        de['IMEI'] = self.IMEI
+        de['Model'] = self.Model
+
+        return de
+
+    def __unicode__(self):
+        return "id:{id} pt_time:{pt_time} point_x:{point_x} point_y:{point_y}".format(
+            id = self.id,
+            IMEI = self.IMEI,
+            Model = self.Model
+        )     
