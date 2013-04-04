@@ -190,8 +190,25 @@ class Device(AbstractBaseModel):
         return de
 
     def __unicode__(self):
-        return "id:{id} pt_time:{pt_time} point_x:{point_x} point_y:{point_y}".format(
+        return "id:{id} IMEI:{IMEI} Model:{Model}".format(
             id = self.id,
             IMEI = self.IMEI,
             Model = self.Model
         )     
+
+#App can belong to multiple users but is unique
+class App(AbstractBaseModel):
+    appName = models.CharField(max_length = 100, null=False,blank=False, unique = True)
+
+    def to_dict(self):
+        an = OrderedDict()
+        an['id'] = self.id;
+        an['appName'] = self.appName
+
+        return an
+
+    def __unicode__(self):
+        return "id:{id} appName:{appName}".format(
+            id = self.id,
+            appName = self.appName
+        )           
