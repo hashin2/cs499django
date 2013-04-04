@@ -13,12 +13,36 @@ body{
 <body>
 	<body bgcolor="#41A317">
 	{{ state }}
-	<form action="/api/files/" method="post">
-		Here are your files {{username}}		
-		<table>
-			<tr><td><b></b></td><td>
-			<tr><td><b>File name</b></td><td>
-			{{filename}}			
+	<form action="/api/files/" method="get">
+		Here are your files {{username}}
+		<br>
+		<br>
+		<table align="left" border="2">						
+			<tr align="center" >
+				<td style="padding:0 15px 0 15px"><b> Filename </b></td>
+				<td style="padding:0 15px 0 15px"><b> File # </b></td>
+			</tr>
+			<tr>
+				{% for entry in data %}
+				<td> {{entry.filename    }} </td>					
+				<td> {{entry.numFiles}} </td>
+			</tr>
+				{%endfor%}
+
+
+
+			{% comment %}
+			TO BE DELETED LATER
+			{% for numFiles, filename in data %}
+				<tr><td> {{numFiles}}:  {{filename}}</td></tr>
+			{% endfor %}
+			{% endcomment %}
+
+			{% comment %}
+			{% for entry in data %}
+			<tr><pre>{{ entry.filename }}         {{entry.numFiles}}</pre></tr>				
+			{%endfor%}
+			{% endcomment %}			
 		</table>
 	</form>
 </body>
