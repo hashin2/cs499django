@@ -1,4 +1,4 @@
-from cs499.cs499_app.models import MotionEvent
+from cs499.cs499_app.models import MotionEvent, UserFiles
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from helpers import rest_mux, jsonify, dejsonify
@@ -12,7 +12,8 @@ def hello_world(request):
         })
 
 def __hello_world(request, query_params=None, **kwargs):
-	events = MotionEvent.objects.all()
+	# events = MotionEvent.objects.all()
+	events = UserFiles.objects.all()
 	retVal = {
 		'events': [e.to_dict() for e in events]	
 	};

@@ -85,6 +85,29 @@ class MotionEvent(AbstractBaseModel):
             pressure = self.pressure
         )
 
+
+class UserFiles(AbstractBaseModel):
+    numFiles = models.IntegerField(blank=False,null=False,default=0)
+    filename = models.CharField(blank=False,null=False,max_length="40")
+    userId = models.IntegerField(blank = False, null = False, default = 0)
+    #user_id = models.ForeignKey('LoginUsers')
+
+    def to_dict(self):
+        f = OrderedDict()        
+        f['numFiles'] = self.numFiles
+        f['filename'] = self.filename
+        f['userId'] = self.userId
+
+        return f
+
+    def __unicode__(self):
+        return "For {userId}: file number: {numFiles} filenames={filename}".format(
+            userId = self.userId,
+            numFiles = self.numFiles,
+            filename = self.filename
+        )
+
+
 class Parser(AbstractBaseModel):
     point_x = models.IntegerField(null=False, blank= False, default=0)
     point_y = models.IntegerField(null=False, blank= False, default=0)
@@ -126,27 +149,6 @@ class LoginUsers(AbstractBaseModel):
             password=self.password
         )
 
-class UserFiles(AbstractBaseModel):
-    numFiles = models.IntegerField(blank=False,null=False,default=0)
-    filename = models.CharField(blank=False,null=False,max_length="40")
-    userId = models.IntegerField(blank = False, null = False, default = 0)
-    #user_id = models.ForeignKey('LoginUsers')
-
-    def to_dict(self):
-        f = OrderedDict()
-        f['id'] = self.id
-        f['numFiles'] = self.numFiles
-        f['filename'] = self.filename
-        f['userId'] = self.userId
-
-        return f
-
-    def __unicode__(self):
-        return "For {userId} number of files is {numFiles} filenames={filename}".format(
-            userId = self.userId,
-            numFiles = self.numFiles,
-            filename = self.filename
-        )
 
 #Session refers to a collection of motionevents        
 class Session(AbstractBaseModel):

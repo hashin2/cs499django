@@ -19,7 +19,7 @@ body{
 	</form>
 	<br /> -->
 	{{ state }}
-	<form action="/api/login/" method="post">
+	<form method="link" action="/api/files/" >
 		{% if next %}
 		<input type="hidden" name="next" value="{{ next }}" />
 		{% endif %}
@@ -29,7 +29,7 @@ body{
 			<tr><td><b>Password:</b></td><td>
 			<input type="password" name="password" value="" /></td></tr>
 			<tr><td><b> </b></td><td>
-			<input type="submit" value="Log In" /></td></tr>
+			<input type="submit" value="Log In" /></td></tr>			
 		</table>
 	</form>
 	<br />
