@@ -13,7 +13,12 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
-import os
+import os, sys
+
+CWD = os.path.abspath(os.path.normpath(os.path.dirname(__file__)))
+PROJECT_DIR = os.path.dirname(CWD)
+
+sys.path.append(PROJECT_DIR)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cs499.settings")
 

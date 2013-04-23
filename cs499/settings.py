@@ -1,4 +1,5 @@
 import os.path
+import os
 import dj_database_url
 
 # Django settings for cs499 project.
@@ -6,13 +7,33 @@ import dj_database_url
 # The absolute path to the project's root.
 PROJ_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+# This sets path to be specific for your computer
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
+
 # Debugging and dev options
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Needed for email
+DEFAULT_FROM_EMAIL = 'h.shiner3802@gmail.com'
+SERVER_EMAIL = 'h.shiner3802@gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'h.shiner3802@gmail.com'
+EMAIL_HOST_PASSWORD = 'zaring123'
+EMAIL_PORT = 587
+
+CLIENT_ID = '51f47d45fe00457294c9f14331c2d7f22222'
+CLIENT_SECRET = 'a3f8402dfb903dae6f176f51e41454f42222'
+# lvh.me is just a domain name for localhost
+REDIRECT_URI = 'http://127.0.0.1:8000/authorize/callback'
+
+
+AUTH_PROFILE_MODULE = "UserProfile"
+
 # Admins and their email addresses
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    # ('Hillary Shiner', 'hashin2@g.uky.edu'),
 )
 
 MANAGERS = ADMINS
@@ -20,13 +41,15 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'website',                      # Or path to database file if using sqlite3.
+        'NAME': 'database',                      # Or path to database file if using sqlite3.
         'USER': 'postgres',                      # Not used with sqlite3.
         'PASSWORD': 'password',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -75,7 +98,10 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJ_ROOT, 'static')
+    # os.path.join(PROJ_ROOT, 'cs499/cs499_app/views/static_files')
+
+    PROJECT_PATH + '/static/css',
+    PROJECT_PATH + '/static/image',
 )
 
 # List of finder classes that know how to find static files in
@@ -116,7 +142,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJ_ROOT, 'templates'),
-    'C:/Users/Hillary/Documents/Spring13/CS499/cs499-django/cs499/cs499_app/templates'
+    'C:/Users/Hillary/Documents/Spring13/CS499/cs499-django/cs499/cs499_app/registration'
 )
 
 INSTALLED_APPS = (
@@ -135,8 +161,17 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    # 'cs499.cs499_app.registration',
+    'registration',
 
 )
+
+# AUTH_PROFILE_MODULE = "registration.accounts.userprofile"
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/session/"
+LOGOUT_REDIRECT_URL = "/accounts/logout/"
+
+ACCOUNT_ACTIVATION_DAYS = 4 #Four day activation window
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -161,7 +196,7 @@ LOGGING = {
     }
 }
 
-#LOGGING = {
+# LOGGING = {
 #    'version': 1,
 #    'disable_existing_loggers': False,
 #    'filters': {
@@ -170,12 +205,7 @@ LOGGING = {
 #        }
 #    },
 #    'handlers': {
-#        'mail_admins': {
-#            'level': 'ERROR',
-#            'filters': ['require_debug_false'],
-#            'class': 'django.utils.log.AdminEmailHandler'
-#        }
-#    },
+#   },
 #    'loggers': {
 #        'django.request': {
 #            'handlers': ['mail_admins'],
@@ -183,7 +213,12 @@ LOGGING = {
 #            'propagate': True,
 #        },
 #    }
-#}
+# }        'mail_admins': {
+#            'level': 'ERROR',
+#            'filters': ['require_debug_false'],
+#            'class': 'django.utils.log.AdminEmailHandler'
+#        }
+
 
 # CS499 App settings
 # How many users to include in the leaderboard.

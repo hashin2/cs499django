@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="session_view">
+<head>
+<meta charset="UTF-8">
+<title>Sessions</title>
+
+<link rel="stylesheet" href="/static/session.css/">
+</head>
+<body>
+{% block content %}
+  <section>
+    <h2>Welcome {{ user.username }} </h2>
+    <p> </p>
+  </section>
+{% endblock %}
+
+{% block body %}
+<section>
+	{% if form.errors %}
+		<p>You must be logged in to view your sessions.</p>
+	{% endif %}
+
+<table class="gradienttable">
+<tr>
+	<th><p style="padding:0 15px 0 15px"><b> Session </b></p></th>	
+	<th><p style="padding:0 15px 0 15px"><b> ID </b></p></th>			
+</tr>
+<tr>
+	{% for file in data %}
+	<tr>			
+		<td><p><b>Session_{{ file.id }} </p></td>
+		<td><p><b><a href="/login/session/{{ file.id }}" target="_blank">{{ file.id }}</a></p></td>
+	</tr>
+	{%endfor%}	
+</tr>
+</table>	
+</section>
+<br><br><br><br><br><br><br>
+	<form action="/logout/">		
+		<input type="submit" class="button" value="Logout">
+	</form>	
+	<!-- <form method="post" action="/login/session/account/">		
+		<input type="submit" class="submit" value="Manage Account">
+	</form> 
+ -->
+</html>
+
+
+
+	<!-- <form method="post" action=".">
+		<table class="gradianttable" align="left" border="2">	
+			<tr align="center" >
+				<td style="padding:0 15px 0 15px"><b> Session </b></td>	
+				<td style="padding:0 15px 0 15px"><b> ID </b></td>			
+			</tr>
+			<tr>
+				{% for file in data %}
+				<tr align="center">			
+					<td align="left">Session_{{ file.id }} </td>
+					<td><a href="/login/session/{{ file.id }}" target="_blank">{{ file.id }}</a></td>
+				</tr>
+				{%endfor%}
+			</tr>				
+		</table>
+		{% if next %}
+			<input type="hidden" name="next" value="{{ next }}" />
+		{% else %}
+			<input type="hidden" name="next" value="/session/" />
+		{% endif %}
+	</form>
+</section>
+{% endblock %}
+<br><br><br><br><br><br><br><br><br>
+	<form action="/logout/">			
+		<input type="submit" class="button" value="Logout">
+	</form>
+	
+	<form method="post" action="/login/session/account/">		
+		<input type="submit" class="submit" value="Manage Account">
+	</form> -->
+
+<!-- </html> --> 

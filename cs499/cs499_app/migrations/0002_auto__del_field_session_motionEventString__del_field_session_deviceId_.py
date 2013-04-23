@@ -8,72 +8,71 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table('heatmap_auth_user', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-        ))
-        db.send_create_signal('cs499_app', ['UserProfile'])
+        # Deleting field 'Session.motionEventString'
+        db.delete_column('cs499_app_session', 'motionEventString')
 
-        # Adding model 'Files'
-        db.create_table('cs499_app_files', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('filename', self.gf('django.db.models.fields.CharField')(default='defaultFilename', max_length=30)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-        ))
-        db.send_create_signal('cs499_app', ['Files'])
+        # Deleting field 'Session.deviceId'
+        db.delete_column('cs499_app_session', 'deviceId_id')
 
-        # Adding model 'Session'
-        db.create_table('cs499_app_session', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('deviceId', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['cs499_app.Device'])),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('motionEventString', self.gf('django.db.models.fields.TextField')(default='')),
-        ))
-        db.send_create_signal('cs499_app', ['Session'])
+        # Deleting field 'Device.IMEI'
+        db.delete_column('cs499_app_device', 'IMEI')
 
-        # Adding model 'MotionEvent'
-        db.create_table('cs499_app_motionevent', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('action', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('deviceId', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('downTime', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('edgeFlags', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('eventTime', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('metaState', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('pressure', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('size', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('x', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('xPrecision', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('y', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('yPrecision', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('sessionId', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['cs499_app.Session'])),
-        ))
-        db.send_create_signal('cs499_app', ['MotionEvent'])
+        # Deleting field 'Device.model'
+        db.delete_column('cs499_app_device', 'model')
 
-        # Adding model 'Device'
-        db.create_table('cs499_app_device', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('IMEI', self.gf('django.db.models.fields.CharField')(default='imei number', max_length=50)),
-            ('model', self.gf('django.db.models.fields.CharField')(default=' Model n/a', max_length=30)),
-        ))
-        db.send_create_signal('cs499_app', ['Device'])
+        # Adding field 'Device.serial'
+        db.add_column('cs499_app_device', 'serial',
+                      self.gf('django.db.models.fields.CharField')(default='0', max_length=50),
+                      keep_default=False)
+
+        # Adding field 'Device.version'
+        db.add_column('cs499_app_device', 'version',
+                      self.gf('django.db.models.fields.CharField')(default='0', max_length=30),
+                      keep_default=False)
+
+        # Adding field 'Device.screenHeight'
+        db.add_column('cs499_app_device', 'screenHeight',
+                      self.gf('django.db.models.fields.IntegerField')(default=0),
+                      keep_default=False)
+
+        # Adding field 'Device.screenWidth'
+        db.add_column('cs499_app_device', 'screenWidth',
+                      self.gf('django.db.models.fields.IntegerField')(default=0),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'UserProfile'
-        db.delete_table('heatmap_auth_user')
+        # Adding field 'Session.motionEventString'
+        db.add_column('cs499_app_session', 'motionEventString',
+                      self.gf('django.db.models.fields.TextField')(default=''),
+                      keep_default=False)
 
-        # Deleting model 'Files'
-        db.delete_table('cs499_app_files')
+        # Adding field 'Session.deviceId'
+        db.add_column('cs499_app_session', 'deviceId',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['cs499_app.Device']),
+                      keep_default=False)
 
-        # Deleting model 'Session'
-        db.delete_table('cs499_app_session')
+        # Adding field 'Device.IMEI'
+        db.add_column('cs499_app_device', 'IMEI',
+                      self.gf('django.db.models.fields.CharField')(default='imei number', max_length=50),
+                      keep_default=False)
 
-        # Deleting model 'MotionEvent'
-        db.delete_table('cs499_app_motionevent')
+        # Adding field 'Device.model'
+        db.add_column('cs499_app_device', 'model',
+                      self.gf('django.db.models.fields.CharField')(default=' Model n/a', max_length=30),
+                      keep_default=False)
 
-        # Deleting model 'Device'
-        db.delete_table('cs499_app_device')
+        # Deleting field 'Device.serial'
+        db.delete_column('cs499_app_device', 'serial')
+
+        # Deleting field 'Device.version'
+        db.delete_column('cs499_app_device', 'version')
+
+        # Deleting field 'Device.screenHeight'
+        db.delete_column('cs499_app_device', 'screenHeight')
+
+        # Deleting field 'Device.screenWidth'
+        db.delete_column('cs499_app_device', 'screenWidth')
 
 
     models = {
@@ -114,10 +113,12 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'cs499_app.device': {
-            'IMEI': ('django.db.models.fields.CharField', [], {'default': "'imei number'", 'max_length': '50'}),
             'Meta': {'object_name': 'Device'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'default': "' Model n/a'", 'max_length': '30'})
+            'screenHeight': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'screenWidth': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'serial': ('django.db.models.fields.CharField', [], {'default': "'0'", 'max_length': '50'}),
+            'version': ('django.db.models.fields.CharField', [], {'default': "'0'", 'max_length': '30'})
         },
         'cs499_app.files': {
             'Meta': {'object_name': 'Files'},
@@ -144,9 +145,7 @@ class Migration(SchemaMigration):
         },
         'cs499_app.session': {
             'Meta': {'object_name': 'Session'},
-            'deviceId': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cs499_app.Device']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'motionEventString': ('django.db.models.fields.TextField', [], {'default': "''"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
         'cs499_app.userprofile': {

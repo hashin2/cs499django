@@ -1,0 +1,60 @@
+{% comment %}
+  Page for new users to register an account
+{% endcomment %}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+
+<link rel="stylesheet" href="/static/style.css/">
+</head>
+<body>
+
+{% block body %}
+  <header>
+    <h1>Heatmap</h1>
+    <h2>Registration Form</h2>
+  </header>
+
+  <section>
+    {% if form.errors %}
+      <p>There was an error with your input, please try again.</p>
+    {% endif %}
+        
+    <form  class="register" method="post" action=".">{% csrf_token %}
+      <p>
+        <label for="id_username">Username:</label>
+        <input type="text" name="username" class="text-field" placeholder="Email" required="required" />
+        {{ form.username }}
+      </p>
+      <p>
+        <label for="id_password">Password:</label>
+         <input type="password" name="password" class="text-field" placeholder="Password" required="required"  />
+        {{ form.password }}
+      </p>
+      <p>
+        <label for="id_firstname">First name:</label>
+        <input type="text" name="firstname" class="text-field" placeholder="First Name" required="required" />
+        {{ form.firstname }}
+      </p>
+      <p>
+        <label for="id_lastname">Last name:</label>
+        <input type="text" name="lastname" class="text-field" placeholder="Last Name" required="required"/>
+        {{ form.lastname }}
+      </p>
+      <p>
+        <label for="id_app">App Name:</label>
+        <input type="text" name="lastname" class="text-field" placeholder="App" required="required" />
+        {{ form.appName }}
+      </p>
+      {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />        
+      {% else %}
+        <input type="hidden" name="next" value="/login/" />
+      {% endif %}
+        <input type="submit" value="Register Account" class="button" />
+    </form>
+  </section>
+{% endblock %}
