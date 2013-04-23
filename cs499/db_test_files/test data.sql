@@ -23,13 +23,19 @@ INSERT INTO cs499_app_motionevent VALUES
 INSERT INTO cs499_app_motionevent VALUES
 	(2, 25,35,'12:00:10',2);
 INSERT INTO cs499_app_motionevent VALUES
-	(3, 30,35,'12:00:12',5);		
+	(3, 30,35,'12:00:12',5);
+INSERT INTO cs499_app_motionevent VALUES
+	(4, 130,135,'12:00:50',1);
+INSERT INTO cs499_app_motionevent VALUES
+	(5, 10,15,'12:00:55',6);			
 
 #SELECT * FROM cs499_app_session;
 
 INSERT INTO cs499_app_session VALUES
 	(1, 1,1,1,'2013-03-20 04:05:06');	
 INSERT INTO cs499_app_session VALUES
-	(2, 1,1,1,'2013-03-20 05:05:00');	
+	(2, 1,1,3,'2013-03-20 05:05:00');	
 INSERT INTO cs499_app_session VALUES
-	(3, 2,1,1,'2013-03-25 04:05:06');	
+	(3, 2,1,4,'2013-03-25 04:05:06');
+INSERT INTO cs499_app_session VALUES
+	(4, 2,2,2,'2013-03-25 04:05:06');	

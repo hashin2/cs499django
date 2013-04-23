@@ -76,7 +76,6 @@ class Session(AbstractBaseModel):
             user = self.user            
         )
 
-
 class MotionEvent(AbstractBaseModel):
     action     = models.IntegerField(null=False, blank= False, default=0)
     deviceId   = models.IntegerField(null=False, blank= False, default=0)
@@ -129,6 +128,7 @@ class MotionEvent(AbstractBaseModel):
         )
 
 
+
 #Device can belong to multiple users but is unique
 class Device(AbstractBaseModel):
     serial = models.CharField(max_length = 50, null=False,blank=False,default="0")
@@ -154,3 +154,21 @@ class Device(AbstractBaseModel):
             screenWidth = self.screenWidth,
             screenHeight = self.screenHeight
         )     
+
+# #App can belong to multiple users but is unique
+# class App(AbstractBaseModel):
+#     appName = models.CharField(max_length = 100, null=False,blank=False, unique = True)
+
+#     def to_dict(self):
+#         an = OrderedDict()
+#         an['id'] = self.id;
+#         an['appName'] = self.appName
+
+#         return an
+
+#     def __unicode__(self):
+#         return "id:{id} appName:{appName}".format(
+#             id = self.id,
+#             appName = self.appName
+#         )           
+

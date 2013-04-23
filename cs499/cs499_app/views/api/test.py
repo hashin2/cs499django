@@ -19,7 +19,8 @@ def hello_world(request):
         })
 
 def __hello_world(request, query_params=None, **kwargs):
-	events = MotionEvent.objects.all()
+	# events = MotionEvent.objects.all()
+	events = UserFiles.objects.all()
 	retVal = {
 		'events': [e.to_dict() for e in events]	
 	};
