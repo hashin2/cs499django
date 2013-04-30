@@ -1,0 +1,57 @@
+{% comment %}
+  Page to shows users list of their apps.
+{% endcomment %}
+<!doctype html>
+<html class="session_view">
+<head>
+<meta charset="UTF-8">
+<title>View Apps</title>
+
+<link rel="stylesheet" href="/static/session.css/">
+</head>
+<body>
+{% block content %}
+  <section>
+  	<img src="/static/image/heatmappheader.png" width = "200px" alt="Heatmapp">
+    <h2>Welcome {{ user.username }} </h2>
+    <p> </p>
+  </section>
+{% endblock %}
+
+{% block body %}
+<section>
+	{% if form.errors %}
+		<p>You must be logged in to view your sessions.</p>
+	{% endif %}
+
+<div style = "width:950px;" >				
+    <form class = "back" action="/login/session/app/" style="display:inline;">
+      <input type="submit" value="Back" class="button" />
+    </form>	
+    <form action="/logout/" style ="display:inline;">		
+		<input type="submit" class="button" value="Logout">
+	</form>  	    
+</div>
+
+
+<br><br><br>
+<table class="gradienttable">
+<tr>
+	<th><p style="padding:0 10px 0 10px"><b> id </b></p></th>
+	<th><p style="padding:0 10px 0 10px"><b> Owner </b></p></th>		
+	<th><p style="padding:0 10px 0 10px"><b> App Name </b></p></th>	
+</tr>
+<tr>
+	{% for app in apps %}
+	<tr>	
+		<td><p><b> {{ app.id }} </p></td>
+		<td><p><b> {{ app.user }} </p></td>		
+		<td><p><b> {{ app.appname }} </p></td>
+	</tr>
+	{%endfor%}	
+</tr>
+</table>	
+{% endblock %}
+</section>
+</html>
+

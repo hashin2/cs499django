@@ -1,0 +1,74 @@
+{% comment %}
+  Page to show user their sessions.
+{% endcomment %}
+
+<!doctype html>
+<html class="session_view">
+<head>
+<meta charset="UTF-8">
+<title>Sessions</title>
+
+<link rel="stylesheet" href="/static/session.css/">
+</head>
+<body>
+{% block content %}
+  <section>
+  	<img src="/static/image/heatmappheader.png" width = "200px" alt="Heatmapp">
+    <h2>Welcome {{ user.username }} </h2>
+    <p> </p>
+  </section>
+{% endblock %}
+
+{% block body %}
+<section>
+	{% if form.errors %}
+		<p>You must be logged in to view your sessions.</p>
+	{% endif %}
+
+<div style = "width:650px;" >
+		<form action="/login/session/app/" style ="display:inline;">		
+			<input type="submit" class="button" value="Manage Apps">
+		</form>
+
+		<form action="/login/session/device/" style ="display:inline;">		
+			<input type="submit" class="button" value="Manage Devices">
+		</form>	
+
+		<form action="/logout/" style ="display:inline;">		
+			<input type="submit" class="button" value="Logout">
+		</form>		
+</div>
+
+<br><br><br>
+<table class="gradienttable">
+<tr>
+	<th><p style="padding:0 15px 0 15px"><b> Session </b></p></th>	
+	<th><p style="padding:0 15px 0 15px"><b> ID </b></p></th>			
+	<th><p style="padding:0 15px 0 15px"><b> Device Serial</b></p></th>	
+	<th><p style="padding:0 15px 0 15px"><b> Screen Size </b></p></th>		
+	<th><p style="padding:0 15px 0 15px"><b> App Name </b></p></th>	
+	<th><p style="padding:0 15px 0 15px"><b> Heatmap View</b></p></th>
+	<th><p style="padding:0 15px 0 15px"><b> Submission Time</b></p></th>
+	<th><p style="padding:0 15px 0 15px"><b>  </b></p></th>
+	<th><p style="padding:0 15px 0 15px"><b> Delete Session</b></p></th>
+</tr>
+<tr>
+	{% for file in data %}
+	<tr>			
+		<td><p><b>Session_{{ file.id }} </p></td>
+		<td><p><b><a href="/login/session/{{ file.id }}" target="_blank">{{ file.id }}</a></p></td>
+		<td><p><b>{{ file.device.serial }} </p></td>
+		<td><p><b>{{ file.device.screenWidth }}, {{ file.device.screenHeight }} </p></td>
+		<td><p><b>{{ file.app.appname }} </p></td>
+		<td><p><b><a href="/login/session/heatmap{{ file.id }}" target="_blank"> heatmap_{{file.id }}</a></p></td>
+		<td><p><b>{{ file.submission }} </p></td>
+		<td><p><b> </p></td>
+		<td><p><b><a href="/login/session/delete{{ file.id }}"> delete_{{file.id }} </a></p></td>
+	</tr>
+	{%endfor%}	
+</tr>
+</table>	
+{% endblock %}
+</section>
+</html>
+

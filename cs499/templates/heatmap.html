@@ -1,0 +1,79 @@
+{% comment %}
+  Generates HeatMap of the Users session
+{% endcomment %}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HeatMap</title>
+
+<link rel="stylesheet" href="/static/style.css/">
+<script type="text/javascript" src="/static/jquery-1.9.1.js"></script> 
+<script type="text/javascript" src="/static/heatmap/src/heatmap.js"></script>
+</head>
+<body>
+  {% block content %}
+  <section>
+    <img src="/static/image/heatmappheader.png" width = "200px" alt="Heatmapp">
+    <h1>User: {{ session.user.username }} </h1>
+    <h2>Session {{ session.id }} </h2>
+    <p> </p>
+  </section>
+{% endblock %}
+
+<script type="text/javascript">
+  document.write("<div id='heatmapArea' class = 'heatmapStyle' style='height:"+{{ session.device.screenHeight}}+"px;width:"+{{ session.device.screenWidth}}+"px;'>");
+  document.write("<canvas id = 'myCanvas' style='border:3px solid black; z-index: 10000000;'' height='"+{{ session.device.screenHeight}}+"' width='"+{{ session.device.screenWidth}}+"'>");
+  document.write("</canvas>");
+  document.write("</div>");
+</script>
+
+
+
+<script type="text/javascript">
+window.onload = function(){
+  // heatmap configuration
+  var config = {
+    element: document.getElementById("heatmapArea"),
+    radius: 30,
+    opacity: 50
+  };
+  //creates and initializes the heatmap
+  var heatmap = h337.create(config);
+  var canvas = document.getElementById('myCanvas');
+  var context = canvas.getContext('2d');
+  var width = {{ session.device.screenWidth}};
+  var height = {{ session.device.screenHeight }};
+  context.fillStyle = '#ffffff';
+  context.fillRect(0,0,width,height);
+
+  var generateData = function(){ 
+    var max = 2,
+    data = [],
+    length = {{ size }},
+    width = {{ session.device.screenWidth}},
+    height = {{ session.device.screenHeight }};
+
+    {% for m in events %}
+        data.push({
+        x: {{ m.x }},
+        y: {{ m.y }},
+        count: 1
+      });
+    {% endfor %}
+
+    return {
+      max: max,
+      data: data
+    };
+  };
+
+  var data = generateData();
+
+  heatmap.store.setDataSet(data);
+};
+</script>
+
+</body>
+</html>

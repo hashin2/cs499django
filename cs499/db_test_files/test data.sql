@@ -1,13 +1,17 @@
-﻿INSERT INTO cs499_app_device VALUES
+﻿INSERT INTO cs499_app_app VALUES
+    (1, 'paint' );
+INSERT INTO cs499_app_app VALUES
+    (2, 'BBALL' );
+
+    
+INSERT INTO cs499_app_device VALUES
     (1, '1MER234F34GM12','SAMSUNG NOTE' );
 INSERT INTO cs499_app_device VALUES
     (2, 'RTH34534RH3','NEXUS 4' );
 INSERT INTO cs499_app_device VALUES
     (3, '342HTYSD2341IIM','NEXUS 7' );
 
-#SELECT * FROM cs499_app_device;
 
-#SELECT * FROM cs499_app_loginusers;
 
 INSERT INTO cs499_app_loginusers VALUES
 	(1, 'jjyann2', 'hibiki');
@@ -16,7 +20,6 @@ INSERT INTO cs499_app_loginusers VALUES
 INSERT INTO cs499_app_loginusers VALUES
 	(3, 'jcyan2', 'password2');
 
-#SELECT * FROM cs499_app_motionevent;
 
 INSERT INTO cs499_app_motionevent VALUES
 	(1, 23,34,'12:00:09',2);
@@ -29,13 +32,13 @@ INSERT INTO cs499_app_motionevent VALUES
 INSERT INTO cs499_app_motionevent VALUES
 	(5, 10,15,'12:00:55',6);			
 
-#SELECT * FROM cs499_app_session;
+
 
 INSERT INTO cs499_app_session VALUES
-	(1, 1,1,1,'2013-03-20 04:05:06');	
+	(1, 1,1,1,1,'2013-03-20 04:05:06');	
 INSERT INTO cs499_app_session VALUES
-	(2, 1,1,3,'2013-03-20 05:05:00');	
+	(2, 1,1,1,1,'2013-03-20 05:05:00');	
 INSERT INTO cs499_app_session VALUES
-	(3, 2,1,4,'2013-03-25 04:05:06');
+	(3, 2,1,4,2,'2013-03-25 04:05:06');
 INSERT INTO cs499_app_session VALUES
-	(4, 2,2,2,'2013-03-25 04:05:06');	
+	(4, 2,2,2,2,'2013-03-25 04:05:06');	

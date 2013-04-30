@@ -5,6 +5,13 @@ from django.core.serializers.json import DjangoJSONEncoder
 import json
 import traceback
 
+
+#********* Purpose *********#
+# This file has helper functions to handle formating data into
+# a json objects and vice versa change json to its regular data form.
+# This code was provided to us by our customer Chris Allen.
+
+
 # Exception used on bogus json.
 class JSONDecodeError(ValueError):
     """

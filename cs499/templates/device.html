@@ -1,0 +1,70 @@
+{% comment %}
+  Page for users to register a device
+{% endcomment %}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>App</title>
+
+<link rel="stylesheet" href="/static/style.css/">
+</head>
+<body>
+
+{% block body %}
+  <header>
+    <img src="/static/image/heatmappheader.png" width = "200px" alt="Heatmapp">
+    <h1>Register a Device</h1>
+  </header>
+
+  <section>
+    {% if form.errors %}
+      <p>There was an error with your input, please try again.</p>
+    {% endif %}
+
+
+    <form  class="device" method="post" action=".">{% csrf_token %}      
+      <br>
+      {{ state }}
+      <br>
+      <br>      
+        <label for="serial">Serial Number:</label>
+        <input type="text" name="serial" class="text-field" placeholder="serial" required="required" />
+        {{ form.serial }}
+      </p>
+      <p>
+        <label for="version">Version:</label>
+        <input type="text" name="version" class="text-field" placeholder="Version" required="required" />
+        {{ form.version }}
+      </p>
+      <p>
+        <label for="screenWidth">Screen Width:</label>
+        <input type="text" name="screenWidth" class="text-field" placeholder="Screen Width" required="required" />
+        {{ form.screenWidth }}
+      </p>
+      <p>
+        <label for="screenHeight">Screen Height:</label>
+        <input type="text" name="screenHeight" class="text-field" placeholder="Screen Height" required="required" />
+        {{ form.screenHeight }}
+      </p>
+      {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+      {% else %}
+        <input type="hidden" name="next" value="/device/" />
+      {% endif %}
+        <input type="submit" value="Register Device" class="button" />
+    </form>
+    <form class = "viewapp" action="/login/session/viewdevices/">
+      <input type="submit" value="View Devices" class="button" />
+    </form>    
+    <form class = "back" action="/login/session/">
+      <input type="submit" value="Back" class="button" />
+    </form>
+    <br>    
+  </section>
+{% endblock %}
+
+
+
+

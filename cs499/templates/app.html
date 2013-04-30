@@ -1,0 +1,50 @@
+{% comment %}
+  Page for users to register an app
+{% endcomment %}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>App</title>
+
+<link rel="stylesheet" href="/static/style.css/">
+</head>
+<body>
+
+{% block body %}
+  <header>
+    <img src="/static/image/heatmappheader.png" width = "200px" alt="Heatmapp">
+    <h1>Register an App</h1>
+  </header>
+
+  <section>
+    {% if form.errors %}
+      <p>There was an error with your input, please try again.</p>
+    {% endif %}
+
+    <form  class="app" method="post" action=".">{% csrf_token %}
+       <br>
+      {{ state }}      
+      <br>    
+      <p>
+        <label for="appname">App Name:</label>
+        <input type="text" name="appname" class="text-field" placeholder="App" required="required" />
+        {{ form.appname }}
+      </p>
+      {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+      {% else %}
+        <input type="hidden" name="next" value="/login/" />
+      {% endif %}
+        <input type="submit" value="Register App" class="button" />
+    </form>
+    <form class = "viewapp" action="/login/session/viewapps/">
+      <input type="submit" value="View Apps" class="button" />
+    </form>    
+    <form class = "back" action="/login/session/">
+      <input type="submit" value="Back" class="button" />
+    </form>
+    
+  </section>
+{% endblock %}

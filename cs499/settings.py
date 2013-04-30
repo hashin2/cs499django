@@ -1,4 +1,5 @@
 import os.path
+import os
 import dj_database_url
 
 # Django settings for cs499 project.
@@ -6,13 +7,16 @@ import dj_database_url
 # The absolute path to the project's root.
 PROJ_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+# This sets path to be specific for your computer
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
+
 # Debugging and dev options
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # Admins and their email addresses
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    
 )
 
 MANAGERS = ADMINS
@@ -20,13 +24,15 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'website',                      # Or path to database file if using sqlite3.
+        'NAME': 'database',                      # Or path to database file if using sqlite3.
         'USER': 'postgres',                      # Not used with sqlite3.
         'PASSWORD': 'password',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -75,7 +81,10 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJ_ROOT, 'static')
+    # os.path.join(PROJ_ROOT, 'cs499/cs499_app/views/static_files')
+
+    PROJECT_PATH + '/static/css',
+    PROJECT_PATH + '/static/image',
 )
 
 # List of finder classes that know how to find static files in
@@ -115,8 +124,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJ_ROOT, 'templates'),
-    'C:/Users/Hillary/Documents/Spring13/CS499/cs499-django/cs499/cs499_app/templates'
+    os.path.join(PROJ_ROOT, 'templates'),    
 )
 
 INSTALLED_APPS = (
@@ -129,14 +137,21 @@ INSTALLED_APPS = (
     'south',
     'django_extensions',
     'cs499.cs499_app',
-    'django.contrib.admin',
-    #'auth',
+    'django.contrib.admin',   
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'registration',
 
 )
+
+# AUTH_PROFILE_MODULE = "registration.accounts.userprofile"
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/session/"
+LOGOUT_REDIRECT_URL = "/accounts/logout/"
+
+ACCOUNT_ACTIVATION_DAYS = 4 #Four day activation window
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -161,7 +176,7 @@ LOGGING = {
     }
 }
 
-#LOGGING = {
+# LOGGING = {
 #    'version': 1,
 #    'disable_existing_loggers': False,
 #    'filters': {
@@ -170,12 +185,7 @@ LOGGING = {
 #        }
 #    },
 #    'handlers': {
-#        'mail_admins': {
-#            'level': 'ERROR',
-#            'filters': ['require_debug_false'],
-#            'class': 'django.utils.log.AdminEmailHandler'
-#        }
-#    },
+#   },
 #    'loggers': {
 #        'django.request': {
 #            'handlers': ['mail_admins'],
@@ -183,7 +193,12 @@ LOGGING = {
 #            'propagate': True,
 #        },
 #    }
-#}
+# }        'mail_admins': {
+#            'level': 'ERROR',
+#            'filters': ['require_debug_false'],
+#            'class': 'django.utils.log.AdminEmailHandler'
+#        }
+
 
 # CS499 App settings
 # How many users to include in the leaderboard.

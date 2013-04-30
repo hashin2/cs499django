@@ -1,11 +1,13 @@
-from django.conf.urls.defaults import patterns
+from django.conf.urls import patterns, include, url
+from django.conf.urls.defaults import *
+from django.contrib import admin
+admin.autodiscover()
+
+#********* Purpose *********#
+# maps the url input to the corresponding function for the url.
+# The only one in this file is for handling the POST request
 
 urlpatterns = patterns('',
-
     # Test
-    (r'^test/?$',
-        'cs499.cs499_app.views.api.test.hello_world'),
-    (r'^login/$','cs499.cs499_app.views.api.views.login_users'), 
-    (r'^newuser/$','cs499.cs499_app.views.api.viewNewUser.new_users'), 
-    (r'files/$','cs499.cs499_app.views.api.viewFiles.user_files'),    
+    (r'^post/?$', 'cs499.cs499_app.views.api.post.api_request'), 
 )

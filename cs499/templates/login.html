@@ -1,0 +1,46 @@
+{% comment %}
+  Main page to authenticate users.
+{% endcomment %}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<link rel="stylesheet" href="/static/style.css/">
+</head>
+<body>
+
+{% block body %}  
+  <section>
+    {% if form.errors %}
+      <p>Your username and password didn't match, please try again.</p>
+    {% endif %}
+
+    <img class="align-center" src="/static/image/login-logo.png" alt="HeatMapp Logo" title="HeatMapp Logo">
+
+    <form method="POST" action=".">{% csrf_token %}
+      <p>
+        <label for="id_username">Username:</label>
+        <input type="text" class="text-field" placeholder="Username" name="username" required="required" />       
+        {{ form.username }}
+      </p>
+      <p>
+        <label for="id_password">Password:</label>
+        <input type="password" class="text-field" name="password" placeholder="Password" required="required" />
+        {{ form.password }}
+      </p>
+      {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+      {% else %}
+        <input type="hidden" name="next" value="/session/" />
+      {% endif %}
+      <input type="submit" class="button" value="Login"/>   
+    </form>
+    <br>
+    <form class = "loginScreen" action="/register/">			           
+	   <input type="submit" class="button" value="Register">
+  	</form>	
+  </section>
+{% endblock %}
