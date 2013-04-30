@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 {% comment %}
   Page to show user their sessions.
 {% endcomment %}
 
+=======
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 <!doctype html>
 <html class="session_view">
 <head>
@@ -13,7 +16,10 @@
 <body>
 {% block content %}
   <section>
+<<<<<<< HEAD
   	<img src="/static/image/heatmappheader.png" width = "200px" alt="Heatmapp">
+=======
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
     <h2>Welcome {{ user.username }} </h2>
     <p> </p>
   </section>
@@ -25,6 +31,7 @@
 		<p>You must be logged in to view your sessions.</p>
 	{% endif %}
 
+<<<<<<< HEAD
 <div style = "width:650px;" >
 		<form action="/login/session/app/" style ="display:inline;">		
 			<input type="submit" class="button" value="Manage Apps">
@@ -40,10 +47,13 @@
 </div>
 
 <br><br><br>
+=======
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 <table class="gradienttable">
 <tr>
 	<th><p style="padding:0 15px 0 15px"><b> Session </b></p></th>	
 	<th><p style="padding:0 15px 0 15px"><b> ID </b></p></th>			
+<<<<<<< HEAD
 	<th><p style="padding:0 15px 0 15px"><b> Device Serial</b></p></th>	
 	<th><p style="padding:0 15px 0 15px"><b> Screen Size </b></p></th>		
 	<th><p style="padding:0 15px 0 15px"><b> App Name </b></p></th>	
@@ -51,12 +61,15 @@
 	<th><p style="padding:0 15px 0 15px"><b> Submission Time</b></p></th>
 	<th><p style="padding:0 15px 0 15px"><b>  </b></p></th>
 	<th><p style="padding:0 15px 0 15px"><b> Delete Session</b></p></th>
+=======
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 </tr>
 <tr>
 	{% for file in data %}
 	<tr>			
 		<td><p><b>Session_{{ file.id }} </p></td>
 		<td><p><b><a href="/login/session/{{ file.id }}" target="_blank">{{ file.id }}</a></p></td>
+<<<<<<< HEAD
 		<td><p><b>{{ file.device.serial }} </p></td>
 		<td><p><b>{{ file.device.screenWidth }}, {{ file.device.screenHeight }} </p></td>
 		<td><p><b>{{ file.app.appname }} </p></td>
@@ -64,11 +77,62 @@
 		<td><p><b>{{ file.submission }} </p></td>
 		<td><p><b> </p></td>
 		<td><p><b><a href="/login/session/delete{{ file.id }}"> delete_{{file.id }} </a></p></td>
+=======
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 	</tr>
 	{%endfor%}	
 </tr>
 </table>	
+<<<<<<< HEAD
 {% endblock %}
 </section>
 </html>
 
+=======
+</section>
+<br><br><br><br><br><br><br>
+	<form action="/logout/">		
+		<input type="submit" class="button" value="Logout">
+	</form>	
+	<!-- <form method="post" action="/login/session/account/">		
+		<input type="submit" class="submit" value="Manage Account">
+	</form> 
+ -->
+</html>
+
+
+
+	<!-- <form method="post" action=".">
+		<table class="gradianttable" align="left" border="2">	
+			<tr align="center" >
+				<td style="padding:0 15px 0 15px"><b> Session </b></td>	
+				<td style="padding:0 15px 0 15px"><b> ID </b></td>			
+			</tr>
+			<tr>
+				{% for file in data %}
+				<tr align="center">			
+					<td align="left">Session_{{ file.id }} </td>
+					<td><a href="/login/session/{{ file.id }}" target="_blank">{{ file.id }}</a></td>
+				</tr>
+				{%endfor%}
+			</tr>				
+		</table>
+		{% if next %}
+			<input type="hidden" name="next" value="{{ next }}" />
+		{% else %}
+			<input type="hidden" name="next" value="/session/" />
+		{% endif %}
+	</form>
+</section>
+{% endblock %}
+<br><br><br><br><br><br><br><br><br>
+	<form action="/logout/">			
+		<input type="submit" class="button" value="Logout">
+	</form>
+	
+	<form method="post" action="/login/session/account/">		
+		<input type="submit" class="submit" value="Manage Account">
+	</form> -->
+
+<!-- </html> --> 
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4

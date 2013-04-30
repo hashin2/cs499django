@@ -1,6 +1,10 @@
 # Create your views here.
 from django.shortcuts import render_to_response
+<<<<<<< HEAD
 from cs499.cs499_app.models import Session, Device, MotionEvent, App 
+=======
+from cs499.cs499_app.models import Session, Device, MotionEvent
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect
@@ -11,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from helpers import rest_mux, jsonify, dejsonify
 
 
+<<<<<<< HEAD
 #********* Purpose *********#
 # This file contains the functions for handling the logging in, 
 # logging out, viewing sessions, viewing individual session data,
@@ -20,37 +25,54 @@ from helpers import rest_mux, jsonify, dejsonify
 
 # Login user and if valid allow them to view their sessions.
 # Uses the built in Django User class to authenticate a users account
+=======
+#Login user and if valid allow them to view their sessions
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 def login_view(request):
     c = {}
     c.update(csrf(request))
     if request.POST:
         username = request.POST.get('username')
         password = request.POST.get('password')
+<<<<<<< HEAD
         # check that the user entered correct username 
         # and password and has a valid account
         user = authenticate(username=username, password=password)        
         # if user is valid then log them in
+=======
+        user = authenticate(username=username, password=password)        
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
         if user is not None:
             if user.is_active:
                 login(request,user)
                 return  HttpResponseRedirect('session')
             else:
                 return render_to_response('register.html',c)
+<<<<<<< HEAD
         # if user is not valid
         else:
             return render_to_response('login.html',c)
     # GET request to get to the login page
+=======
+        else:
+            return render_to_response('login.html',c)
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
     else:
         return render_to_response('login.html',c)
 
 
+<<<<<<< HEAD
 # Logout user when they are finished viewing their sessions
 # using built in functions of the Django User class
+=======
+#Logout user when they are finished viewing their sessions
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 def logout_view(request):
     logout(request)
     return render_to_response('logout.html')
 
 
+<<<<<<< HEAD
 # Creates new account for user when they register
 def register(request):
     c = {}
@@ -58,18 +80,31 @@ def register(request):
     # POST request called when 'register account' button pressed
     if request.POST:
         # get the information entered by the user
+=======
+#Creates new account for user when they register
+def register(request):
+    c = {}
+    c.update(csrf(request))
+
+    if request.POST:
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
         username = request.POST.get('username')
         password = request.POST.get('password')
         first_name = request.POST.get('firstName')
         last_name = request.POST.get('last_name')
+<<<<<<< HEAD
         # check that the username and password entered  
         # does not already exist in  the database
         user = authenticate(username=username, password=password)
         # if username/password are available then add new user to database
+=======
+        user = authenticate(username=username, password=password)
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
         if user is None:
             u = User(username=username)
             u.set_password(password)
             u.save()   
+<<<<<<< HEAD
             # redirect to the login page after successfully creating the users account
             return HttpResponseRedirect('/login/')
         # stay on register page if invalid data entered
@@ -203,10 +238,46 @@ def viewdevices(request):
 # Allows users to delete sessions they no longer want
 @login_required
 def delete_session(request, offset): 
+=======
+            return HttpResponseRedirect('/login/')
+        else:
+            print("Invalid infomation entered") 
+            return render_to_response('register.html',c) 
+    else:       
+        return render_to_response('register.html',c)   
+
+
+#Allows users to add additional apps to the account
+def manageAccount(request):
+    c = {}
+    c.update(csrf(request))
+    if request.POST:
+        password = request.POST.get('password')
+        return render_to_response('account',c)             
+    else:       
+        return render_to_response('account',c)          	  
+
+
+#Gets the session ID for the session requested by the user
+@login_required
+def session_view(request): 
+    if not request.user.is_authenticated():
+        return render(request,'login.html')         
+    else:          
+        events = Session.objects.all().filter(user=request.user.id)
+        idNum = Session.objects.values('id')        
+        return render_to_response('session.html', {'data':events, 'id':idNum, 'user':request.user})   
+
+
+#Displays motion events for the requests session
+@login_required
+def display_session(request, offset, query_params=None):
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
     try:
         offset = int(offset)        
     except ValueError:
         raise Http404() 
+<<<<<<< HEAD
 
     s = Session.objects.all().filter(id=offset)   
     s.delete()
@@ -214,3 +285,15 @@ def delete_session(request, offset):
     events = Session.objects.all().filter(user=request.user.id)
     idNum = Session.objects.values('id')        
     return render_to_response('session.html', {'data':events, 'id':idNum, 'user':request.user})         
+=======
+
+    s = Session.objects.all().filter(id=offset)   
+    events = MotionEvent.objects.all().filter(sessionId=s)
+    sz = len(events)
+    for i in range(0,sz):
+        retVal = {
+            'events': [e.to_dict() for e in events] 
+        };
+    return HttpResponse(retVal)
+    # return HttpResponse(jsonify(retVal, query_params), mimetype="application/json")
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4

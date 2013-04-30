@@ -39,6 +39,7 @@ nav a.focus {
 	opacity: 1;
 }
 
+<<<<<<< HEAD
 img.align-center
 {
     display: block;
@@ -48,6 +49,8 @@ img.align-center
 }
 
 
+=======
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 /* LOGIN & REGISTER FORM */
 
 form {
@@ -62,6 +65,7 @@ form {
 }
 
 form.register{																				/* Register form height */
+<<<<<<< HEAD
 	height: 500px;
 }
 
@@ -71,6 +75,9 @@ form.app{																				/* Register form height */
 
 form.device{
 	height: 500px;
+=======
+	height: 580px;
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 }
 
 form.loginScreen{																				/* Register form height */
@@ -78,6 +85,7 @@ form.loginScreen{																				/* Register form height */
 	margin: -50px auto;
 }
 
+<<<<<<< HEAD
 form.back{
 	height: 80px;
 	margin: -40px auto;	
@@ -94,6 +102,8 @@ div.heatmapStyle{
 	margin-right: auto;
 }
 
+=======
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 form .text-field {																			/* Input fields; Username, Password etc. */
 	border: 1px solid #a6a6a6;
 	width: 230px;

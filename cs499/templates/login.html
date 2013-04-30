@@ -12,18 +12,35 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 {% block body %}  
+=======
+{% block body %}
+  <header>
+    <h1>Heatmap</h1>
+    <h2>Login to view your sessions</h2>
+  </header>
+
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
   <section>
     {% if form.errors %}
       <p>Your username and password didn't match, please try again.</p>
     {% endif %}
 
+<<<<<<< HEAD
     <img class="align-center" src="/static/image/login-logo.png" alt="HeatMapp Logo" title="HeatMapp Logo">
 
     <form method="POST" action=".">{% csrf_token %}
       <p>
         <label for="id_username">Username:</label>
         <input type="text" class="text-field" placeholder="Username" name="username" required="required" />       
+=======
+    <form method="POST" action=".">{% csrf_token %}
+      <p>
+        <label for="id_username">Username:</label>
+        <input type="text" class="text-field" placeholder="Username" name="username" required="required" />
+       <!--  <input type="text" class="loginInput" name="username" placeholder="Username" required="required" /> -->
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
         {{ form.username }}
       </p>
       <p>
@@ -36,9 +53,17 @@
       {% else %}
         <input type="hidden" name="next" value="/session/" />
       {% endif %}
+<<<<<<< HEAD
       <input type="submit" class="button" value="Login"/>   
     </form>
     <br>
+=======
+      <input type="submit" class="button" value="Login"/>
+      <!-- <input type="submit" value="Login" />      	 -->      
+    </form>
+    <br>
+    
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
     <form class = "loginScreen" action="/register/">			           
 	   <input type="submit" class="button" value="Register">
   	</form>	

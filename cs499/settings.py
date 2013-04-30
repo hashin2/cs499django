@@ -14,9 +14,30 @@ PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Needed for email
+DEFAULT_FROM_EMAIL = 'h.shiner3802@gmail.com'
+SERVER_EMAIL = 'h.shiner3802@gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'h.shiner3802@gmail.com'
+EMAIL_HOST_PASSWORD = 'zaring123'
+EMAIL_PORT = 587
+
+CLIENT_ID = '51f47d45fe00457294c9f14331c2d7f22222'
+CLIENT_SECRET = 'a3f8402dfb903dae6f176f51e41454f42222'
+# lvh.me is just a domain name for localhost
+REDIRECT_URI = 'http://127.0.0.1:8000/authorize/callback'
+
+
+AUTH_PROFILE_MODULE = "UserProfile"
+
 # Admins and their email addresses
 ADMINS = (
+<<<<<<< HEAD
     
+=======
+    # ('Hillary Shiner', 'hashin2@g.uky.edu'),
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 )
 
 MANAGERS = ADMINS
@@ -124,7 +145,12 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+<<<<<<< HEAD
     os.path.join(PROJ_ROOT, 'templates'),    
+=======
+    os.path.join(PROJ_ROOT, 'templates'),
+    'C:/Users/Hillary/Documents/Spring13/CS499/cs499-django/cs499/cs499_app/registration'
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 )
 
 INSTALLED_APPS = (
@@ -142,6 +168,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+<<<<<<< HEAD
+=======
+    # 'cs499.cs499_app.registration',
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
     'registration',
 
 )

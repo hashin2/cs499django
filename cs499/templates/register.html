@@ -14,8 +14,13 @@
 
 {% block body %}
   <header>
+<<<<<<< HEAD
     <img src="/static/image/heatmappheader.png" width = "200px" alt="Heatmapp">
     <h1>Registration Form</h1>
+=======
+    <h1>Heatmap</h1>
+    <h2>Registration Form</h2>
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
   </header>
 
   <section>
@@ -43,7 +48,16 @@
         <label for="id_lastname">Last name:</label>
         <input type="text" name="lastname" class="text-field" placeholder="Last Name" required="required"/>
         {{ form.lastname }}
+<<<<<<< HEAD
       </p>      
+=======
+      </p>
+      <p>
+        <label for="id_app">App Name:</label>
+        <input type="text" name="lastname" class="text-field" placeholder="App" required="required" />
+        {{ form.appName }}
+      </p>
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
       {% if next %}
         <input type="hidden" name="next" value="{{ next }}" />        
       {% else %}

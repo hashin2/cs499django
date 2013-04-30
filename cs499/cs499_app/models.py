@@ -5,12 +5,15 @@ import json
 from django.contrib.auth.models import User
 from cs499.cs499_app.views.api.helpers import dejsonify
 
+<<<<<<< HEAD
 
 #******* Purpose ********#
 # This file conatins all the models needed for creating tables in the database. 
 # Parts of this code was provided to us by our Customer Chris Allen.
 
 
+=======
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
 # Abstract Models #############################################################
 
 class AbstractBaseModel(models.Model):
@@ -64,6 +67,7 @@ class AbstractBaseModel(models.Model):
         raise NotImplementedError(
             "Ths model hasn't implemented update_from_dict()")
 
+<<<<<<< HEAD
 
 
 #Device can belong to multiple users but is unique
@@ -193,3 +197,119 @@ class MotionEvent(AbstractBaseModel):
             y = self.y,
             yPrecision = self.yPrecision,            
         )
+=======
+#Session refers to a collection of motionevents        
+class Session(AbstractBaseModel):
+    #deviceId = models.ForeignKey('Device')
+    user = models.ForeignKey(User)
+   
+    def to_dict(self):
+        s = OrderedDict()
+        s['id'] = self.id      
+        s['user'] = self.user
+        
+        return s
+
+    def __unicode__(self):
+        return "SessionId:{id} User:{user}".format(
+            id = self.id,
+            user = self.user            
+        )
+
+class MotionEvent(AbstractBaseModel):
+    action     = models.IntegerField(null=False, blank= False, default=0)
+    deviceId   = models.IntegerField(null=False, blank= False, default=0)
+    downTime   = models.IntegerField(null=False, blank= False, default=0)
+    edgeFlags  = models.IntegerField(null=False, blank= False, default=0)
+    eventTime  = models.IntegerField(null=False, blank= False, default=0)
+    metaState  = models.IntegerField(null=False, blank= False, default=0)
+    pressure   = models.IntegerField(null=False, blank= False, default=0)
+    size       = models.IntegerField(null=False, blank= False, default=0)
+    x          = models.FloatField(null = False, default = 0)
+    xPrecision = models.FloatField(null = False, default = 0)
+    y          = models.FloatField(null = False, default = 0)
+    yPrecision = models.FloatField(null = False, default = 0)
+    sessionId  = models.ForeignKey(Session)
+
+    def to_dict(self):
+        d = OrderedDict()
+        d['id'] = self.id
+        d['action'] = self.action
+        d['deviceId'] = self.deviceId
+        d['downTime'] = self.downTime
+        d['edgeFlags'] = self.edgeFlags
+        d['eventTime'] = self.eventTime
+        d['metaState'] = self.metaState
+        d['pressure'] = self.pressure
+        d['size'] = self.size
+        d['x'] = self.x
+        d['xPrecision'] = self.xPrecision
+        d['y'] = self.y
+        d['yPrecision'] = self.yPrecision
+        d['sessionId'] = self.sessionId
+
+        return d
+
+    def __unicode__(self):
+        return "id:{id} action:{action}, deviceId={deviceId}, downTime={downTime}, edgeFlags={edgeFlags}, eventTime={eventTime}, metaStat={metaStat}, pressure={pressure}, size={size}, x:{x}, xPrecision={xPrecision}, y:{y}, yPrecision={yPrecision}".format(
+            id = self.id,
+            action = self.action,
+            deviceId = self.deviceId,
+            downTime = self.downTime,
+            edgeFlags = self.edgeFlags,
+            eventTime = self.eventTime,
+            metaStat= self.metaState,
+            pressure = self.pressure,
+            size = self.size,
+            x = self.x,
+            xPrecision = self.xPrecision,
+            y = self.y,
+            yPrecision = self.yPrecision,            
+        )
+
+
+
+#Device can belong to multiple users but is unique
+class Device(AbstractBaseModel):
+    serial = models.CharField(max_length = 50, null=False,blank=False,default="0")
+    version = models.CharField(max_length = 30, null=False,blank=False,default= "0")
+    screenHeight = models.IntegerField(null=False, blank= False, default=0)
+    screenWidth = models.IntegerField(null=False, blank= False, default=0) 
+
+    def to_dict(self):
+        de = OrderedDict()
+        de['id'] = self.id;
+        de['serial'] = self.serial
+        de['version'] = self.version
+        de['screenWidth'] = self.screenWidth
+        de['screenHeight'] = self.screenHeight
+
+        return de
+
+    def __unicode__(self):
+        return "id:{id}, serial:{serial}, version={version}, screenWidth={screenWidth+, screenHeight={screenHeight}".format(
+            id = self.id,
+            serial = self.serial,
+            version = self.version,
+            screenWidth = self.screenWidth,
+            screenHeight = self.screenHeight
+        )     
+
+# #App can belong to multiple users but is unique
+# class App(AbstractBaseModel):
+#     appName = models.CharField(max_length = 100, null=False,blank=False, unique = True)
+
+#     def to_dict(self):
+#         an = OrderedDict()
+#         an['id'] = self.id;
+#         an['appName'] = self.appName
+
+#         return an
+
+#     def __unicode__(self):
+#         return "id:{id} appName:{appName}".format(
+#             id = self.id,
+#             appName = self.appName
+#         )           
+
+>>>>>>> 11315b61f739cbec77d8c1b402ba235432d88cb4
